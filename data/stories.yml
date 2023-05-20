@@ -1,0 +1,35 @@
+version: "3.1"
+
+stories:
+  - story: book appointment path
+    steps:
+      - intent: greet
+      - action: utter_greet
+      - intent: thank_you
+      - action: utter_thank_you
+      - intent: 
+
+  - story: cancel appointment path
+    steps:
+      - intent: greet
+      - action: utter_greet
+      - intent: cancel_appointment
+      - action: utter_confirm_cancel
+      - intent: affirm
+      - action: utter_enter_appointment_number_for_cancelation
+      - intent: appointment_number
+      - action: action_cancel_appointment
+      - intent: thank_you
+      - action: utter_thank_you
+
+  # - story: check status appointment path
+  #   steps:
+  #     - intent: greet
+  #     - action: utter_greet
+  #     - intent: check_status_appointment
+  #     - action: utter_enter_appointment_number_for_status
+  #     - intent: appointment_number
+  #     - action: action_check_status_appointment
+  #     - intent: thank_you
+  #     - action: utter_thank_you
+

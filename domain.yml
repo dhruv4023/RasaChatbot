@@ -1,0 +1,57 @@
+version: "3.1"
+
+intents:
+  - greet
+  - thank_you
+  - goodbye
+  - affirm
+  - deny
+  - mood_great
+  - bot_challenge
+  - book_appointment
+  - cancel_appointment
+  - check_status_appointment
+  - appointment_number
+
+entities:
+  - AID
+
+slots:  
+  AID:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: AID
+
+actions:
+  - action_cancel_appointment
+  - action_check_status_appointment
+
+responses:
+  utter_greet:
+    - text: "Hello sir! How can i help you today ?"
+
+  utter_enter_appointment_number_for_cancelation:
+    - text: "Can you please enter appointment Number to cancel?"
+
+  utter_enter_appointment_number_for_status:
+    - text: "Can you please enter appointment Number to check status?"
+
+  utter_confirm_cancel:
+    - text: "do reallywant to cancel?"
+  utter_did_that_help:
+    - text: "Did that help you?"
+
+  utter_goodbye:
+    - text: "Bye"
+
+  utter_iamabot:
+    - text: "I am a bot, powered by Rasa."
+
+  utter_thank_you:
+    - text: "You are welcome!"
+
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true

@@ -1,0 +1,105 @@
+version: "3.1"
+
+nlu:
+  - intent: greet
+    examples: |
+      - hey
+      - hello
+      - hi
+      - hello there
+      - good morning
+      - good evening
+      - moin
+      - hey there
+      - let's go
+      - hey dude
+      - goodmorning
+      - goodevening
+      - good afternoon
+
+  - intent: thank_you
+    examples: |
+      - thanks
+      - thank you
+      - thx
+      - ty
+
+  - intent: affirm
+    examples: |
+      - yes
+      - y
+      - indeed
+      - of course
+      - that sounds good
+      - correct
+
+  - intent: goodbye
+    examples: |
+      - cu
+      - good by
+      - cee you later
+      - good night
+      - bye
+      - goodbye
+      - have a nice day
+      - see you around
+      - bye bye
+      - see you later
+
+  - intent: deny
+    examples: |
+      - no
+      - n
+      - never
+      - I don't think so
+      - don't like that
+      - no way
+      - not really
+
+  - intent: mood_great
+    examples: |
+      - perfect
+      - great
+      - amazing
+      - feeling like a king
+      - wonderful
+      - I am feeling very good
+      - I am great
+      - I am amazing
+      - I am going to save the world
+      - super stoked
+      - extremely good
+      - so so perfect
+      - so good
+      - so perfect
+
+  - intent: bot_challenge
+    examples: |
+      - are you a bot?
+      - are you a human?
+      - am I talking to a bot?
+      - am I talking to a human?
+
+  - intent: book_appointment
+    examples: |
+      - i want to book my appointment
+      - book appointment
+
+  - intent: cancel_appointment
+    examples: |
+      - i want to cancel my appointment
+      - cancel appointment
+
+  - intent: check_status_appointment
+    examples: |
+      - i want to check status of my appointment
+      - check status appointment
+
+  - intent: appointment_number
+    examples: |
+      - here is appointment number [xyz4023_Consultant_1683192423](AID)
+      - appointment number [jit205_Salon_17896543](AID)
+      - aid is [abc123_Gym_17896543](AID)
+      - aid : [abc123_Gym_17896543](AID)
+      - aid = [abc123_Gym_17896543](AID)
+      - [adxc123_Gym_17896564543](AID)

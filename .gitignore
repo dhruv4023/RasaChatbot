@@ -1,0 +1,10 @@
+.rasa
+
+# Ignore Rasa-specific files
+models/*.db
+models/*.tar.gz
+*.log
+
+# Ignore Python-specific files
+actions/__pycache__/
+*.pyc
