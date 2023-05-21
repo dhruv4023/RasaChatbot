@@ -1,5 +1,4 @@
 version: "3.1"
-
 nlu:
   - intent: greet
     examples: |
@@ -9,21 +8,18 @@ nlu:
       - hello there
       - good morning
       - good evening
-      - moin
       - hey there
       - let's go
       - hey dude
       - goodmorning
       - goodevening
       - good afternoon
-
   - intent: thank_you
     examples: |
       - thanks
       - thank you
       - thx
       - ty
-
   - intent: affirm
     examples: |
       - yes
@@ -32,7 +28,6 @@ nlu:
       - of course
       - that sounds good
       - correct
-
   - intent: goodbye
     examples: |
       - cu
@@ -45,7 +40,6 @@ nlu:
       - see you around
       - bye bye
       - see you later
-
   - intent: deny
     examples: |
       - no
@@ -55,7 +49,6 @@ nlu:
       - don't like that
       - no way
       - not really
-
   - intent: mood_great
     examples: |
       - perfect
@@ -72,34 +65,108 @@ nlu:
       - so so perfect
       - so good
       - so perfect
-
   - intent: bot_challenge
     examples: |
       - are you a bot?
       - are you a human?
       - am I talking to a bot?
       - am I talking to a human?
-
   - intent: book_appointment
     examples: |
       - i want to book my appointment
       - book appointment
-
+      - book my appointment
+      - appointment book
+      - book
   - intent: cancel_appointment
     examples: |
       - i want to cancel my appointment
       - cancel appointment
-
+      - cancel
+      - appointment cancel
+      - cancel cancel
+      - appointment cancel cancel
   - intent: check_status_appointment
     examples: |
       - i want to check status of my appointment
       - check status appointment
-
+      - check status
   - intent: appointment_number
     examples: |
-      - here is appointment number [xyz4023_Consultant_1683192423](AID)
-      - appointment number [jit205_Salon_17896543](AID)
-      - aid is [abc123_Gym_17896543](AID)
-      - aid : [abc123_Gym_17896543](AID)
-      - aid = [abc123_Gym_17896543](AID)
-      - [adxc123_Gym_17896564543](AID)
+      - here is appointment number [aid_1683192423](AID)
+      - appointment number [aid_17896543](AID)
+      - aid is [aid_17896541213](AID)
+      - aid : [aid_17896516543](AID)
+      - aid = [aid_1789654153](AID)
+      - [aid_1789656454453](AID)
+
+  - intent: wr_otp
+    examples: |
+      - [123456](otp)
+      - otp is [123656](otp)
+      - here is otp [173656](otp)
+      - [783656](otp) is otp
+
+  - intent: fill_book_form
+    examples: |
+      - my name is [dhruv](name)
+      - name [dhruv](name)
+      - [dhruv](name)
+      - [dhruv](name) is my name
+      - my name is [vraj](name)
+      - name [vraj](name)
+      - [vraj](name)
+      - [vraj](name) is my name
+      - my name is [gaurav](name)
+      - name [gaurav](name)
+      - [gaurav](name)
+      - [gaurav](name) is my name
+      - my age is [21](age)
+      - age [21](age)
+      - [21](age)
+      - i am [21](age) year old
+      - my age is [20](age)
+      - age [20](age)
+      - [20](age)
+      - i am [20](age) year old
+      - my age is [19](age)
+      - age [19](age)
+      - [19](age)
+      - i am [19](age) year old
+      - my email is [dhruv20345@gmail.com](email)
+      - my email is [gaurav@ddu.ac.in](email)
+      - my email is [vraj@gmail.com](email)
+      - email [dhruv20345@gmail.com](email)
+      - email [gaurav@ddu.ac.in](email)
+      - email [vraj@gmail.com](email)
+      - [dhruv20345@gmail.com](email) email
+      - [gaurav@ddu.ac.in](email) email
+      - [vraj@gmail.com](email) email
+      - [dhruv](name)
+      - [20](age) is my age
+      - [dhruv20345@gmail.com](email)
+      - my city is [Nadiad](city)
+      - city [Nadiad](city)
+      - [Nadiad](city)
+      - i am live in [Nadiad](city)
+      - my city is [Delhi](city)
+      - city [Delhi](city)
+      - [Delhi](city)
+      - i am live in [Delhi](city)
+      - my city is [Anand](city)
+      - city [Anand](city)
+      - [Anand](city)
+      - i am live in [Anand](city)
+
+  - regex: age
+    examples: |
+      - \b\d{1,3}\b
+
+  - regex: otp
+    examples: |
+      - \b\d{6}\b
+
+  - regex: email
+    examples: |
+      - \b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}\b
+ 

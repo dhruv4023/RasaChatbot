@@ -5,9 +5,25 @@ stories:
     steps:
       - intent: greet
       - action: utter_greet
+      - intent: book_appointment  
+      - action: booking_form
+      - active_loop: booking_form
+      - slot_was_set:
+        - requested_slot: name
+      - slot_was_set:
+        - requested_slot: age
+      - slot_was_set:
+        - requested_slot: email
+      - slot_was_set:
+        - requested_slot: city
+      - active_loop: null
+      - action: utter_slots_values
+      - intent: affirm
+      - action: action_send_otp
+      - intent: wr_otp
+      - action: action_book_appointment
       - intent: thank_you
       - action: utter_thank_you
-      - intent: 
 
   - story: cancel appointment path
     steps:
@@ -18,6 +34,8 @@ stories:
       - intent: affirm
       - action: utter_enter_appointment_number_for_cancelation
       - intent: appointment_number
+      - action: action_send_otp
+      - intent: wr_otp
       - action: action_cancel_appointment
       - intent: thank_you
       - action: utter_thank_you
@@ -32,4 +50,3 @@ stories:
   #     - action: action_check_status_appointment
   #     - intent: thank_you
   #     - action: utter_thank_you
-

@@ -1,57 +1,114 @@
 version: "3.1"
-
 intents:
-  - greet
-  - thank_you
-  - goodbye
   - affirm
-  - deny
-  - mood_great
-  - bot_challenge
+  - appointment_number
   - book_appointment
+  - bot_challenge
   - cancel_appointment
   - check_status_appointment
-  - appointment_number
-
+  - deny
+  - fill_book_form
+  - goodbye
+  - greet
+  - mood_great
+  - wr_otp
+  - thank_you
 entities:
+  - name
+  - email
+  - age
+  - city
   - AID
-
-slots:  
+  - otp
+slots:
   AID:
     type: text
     influence_conversation: true
     mappings:
       - type: from_entity
         entity: AID
-
+  otp:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: otp
+  name:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: name
+        conditions:
+          - active_loop: booking_form
+  age:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: age
+        conditions:
+          - active_loop: booking_form
+  email:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: email
+        conditions:
+          - active_loop: booking_form
+  city:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: city
+        conditions:
+          - active_loop: booking_form
+forms:
+  booking_form:
+    required_slots:
+      - name
+      - age
+      - email
+      - city
 actions:
+  - utter_greet
+  - utter_slots_values
+  - utter_thank_you
+  - action_book_appointment
   - action_cancel_appointment
   - action_check_status_appointment
+  - action_send_otp
 
 responses:
   utter_greet:
-    - text: "Hello sir! How can i help you today ?"
-
+    - text: Hello sir! How can i help you today ?
   utter_enter_appointment_number_for_cancelation:
-    - text: "Can you please enter appointment Number to cancel?"
-
+    - text: Can you please enter appointment Number to cancel?
   utter_enter_appointment_number_for_status:
-    - text: "Can you please enter appointment Number to check status?"
-
+    - text: Can you please enter appointment Number to check status?
   utter_confirm_cancel:
-    - text: "do reallywant to cancel?"
+    - text: do reallywant to cancel?
   utter_did_that_help:
-    - text: "Did that help you?"
+    - text: Did that help you?
 
-  utter_goodbye:
-    - text: "Bye"
-
+  utter_ask_name:
+    - text: please enter your name !
+  utter_ask_age:
+    - text: please enter your age !
+  utter_ask_email:
+    - text: please enter your email !
+  utter_ask_city:
+    - text: please enter your city !
+  utter_slots_values:
+    - text: "your details is :\nname:{name}\nage:{age}\nmobile number: {email}\ncity: {city}\n\nis it correct ?"
   utter_iamabot:
-    - text: "I am a bot, powered by Rasa."
-
+    - text: I am a bot, powered by Rasa.
   utter_thank_you:
-    - text: "You are welcome!"
-
+    - text: You are welcome!
+  utter_goodbye:
+    - text: bye bye!
 session_config:
   session_expiration_time: 60
   carry_over_slots_to_new_session: true
