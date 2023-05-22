@@ -3,19 +3,17 @@ version: "3.1"
 stories:
   - story: book appointment path
     steps:
-      - intent: greet
-      - action: utter_greet
-      - intent: book_appointment  
+      - intent: book_appointment
       - action: booking_form
       - active_loop: booking_form
       - slot_was_set:
-        - requested_slot: name
+          - requested_slot: name
       - slot_was_set:
-        - requested_slot: age
+          - requested_slot: age
       - slot_was_set:
-        - requested_slot: email
+          - requested_slot: email
       - slot_was_set:
-        - requested_slot: city
+          - requested_slot: city
       - active_loop: null
       - action: utter_slots_values
       - intent: affirm
@@ -27,8 +25,6 @@ stories:
 
   - story: cancel appointment path
     steps:
-      - intent: greet
-      - action: utter_greet
       - intent: cancel_appointment
       - action: utter_confirm_cancel
       - intent: affirm
@@ -39,7 +35,9 @@ stories:
       - action: action_cancel_appointment
       - intent: thank_you
       - action: utter_thank_you
-
+  - story: default fallback
+    steps:
+      - action: action_default_fallback
   # - story: check status appointment path
   #   steps:
   #     - intent: greet
@@ -50,3 +48,9 @@ stories:
   #     - action: action_check_status_appointment
   #     - intent: thank_you
   #     - action: utter_thank_you
+  - story: fees path
+    steps:
+      - intent: fees_intent
+      - action: utter_fees_intent
+      - intent: thank_you
+      - action: utter_thank_you

@@ -7,19 +7,21 @@ intents:
   - cancel_appointment
   - check_status_appointment
   - deny
+  - fees_intent
   - fill_book_form
   - goodbye
   - greet
   - mood_great
-  - wr_otp
   - thank_you
+  - wr_otp
 entities:
   - name
-  - email
-  - age
   - city
-  - AID
+  - email
   - otp
+  - age
+  - AID
+  - sentOTP
 slots:
   AID:
     type: text
@@ -27,6 +29,12 @@ slots:
     mappings:
       - type: from_entity
         entity: AID
+  sentOTP:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: sentOTP
   otp:
     type: text
     influence_conversation: true
@@ -73,14 +81,13 @@ forms:
       - email
       - city
 actions:
+  - action_send_otp
+  - action_book_appointment
   - utter_greet
   - utter_slots_values
   - utter_thank_you
-  - action_book_appointment
   - action_cancel_appointment
   - action_check_status_appointment
-  - action_send_otp
-
 responses:
   utter_greet:
     - text: Hello sir! How can i help you today ?
@@ -92,23 +99,33 @@ responses:
     - text: do reallywant to cancel?
   utter_did_that_help:
     - text: Did that help you?
-
   utter_ask_name:
     - text: please enter your name !
   utter_ask_age:
     - text: please enter your age !
   utter_ask_email:
     - text: please enter your email !
+  utter_fees_intent:
+    - text: "there is no fees while booking an appointment. fees will be charged after appointment!"
   utter_ask_city:
     - text: please enter your city !
   utter_slots_values:
-    - text: "your details is :\nname:{name}\nage:{age}\nmobile number: {email}\ncity: {city}\n\nis it correct ?"
+    - text: |-
+        your details is :
+        name:{name}
+        age:{age}
+        mobile number: {email}
+        city: {city}
+
+        is it correct ?
   utter_iamabot:
     - text: I am a bot, powered by Rasa.
   utter_thank_you:
     - text: You are welcome!
   utter_goodbye:
     - text: bye bye!
+  utter_default:
+    - text: "chatbot not get it !"
 session_config:
   session_expiration_time: 60
   carry_over_slots_to_new_session: true

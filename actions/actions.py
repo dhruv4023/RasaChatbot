@@ -9,7 +9,6 @@
 
 from rasa_sdk.events import SlotSet
 from actions.sendMailFunction import sendMail
-from pymongo import MongoClient
 from datetime import datetime
 import time
 import requests
@@ -18,7 +17,8 @@ from rasa_sdk.executor import CollectingDispatcher
 from typing import Any, Text, Dict, List
 from rasa_sdk import Action, Tracker
 
-SERVER = "http://localhost:5612"
+from pymongo import MongoClient
+
 DB_URL = "mongodb://localhost:27017"
 
 client = MongoClient(DB_URL)
@@ -53,13 +53,13 @@ class ActionSendOtp(Action):
         email = tracker.get_slot("email")
         AID = tracker.get_slot("AID")
         if AID is not None:
-            dt=appointment.find_one({"_id":AID})
-            email= dt["email"]
-        # otp = sendMail(email)
-        otp="154622"
-        dispatcher.utter_message(text="sending otp to "+email)
+            dt = appointment.find_one({"_id": AID})
+            email = dt["email"]
+        otp = sendMail(email)
+        # otp = "154622"
+        dispatcher.utter_message(text="otp sent to "+email+", type 6 digit otp here to verify your email !")
 
-        return [SlotSet("otp", otp)]
+        return [SlotSet("sentOTP", otp)]
 
 
 def extract_appointment_number(input_string):
@@ -83,9 +83,17 @@ class ActionCancelAppointment(Action):
         print("cancel")
 
         AID = tracker.get_slot("AID")
+        otp = tracker.get_slot("otp")
+        sentOTP = tracker.get_slot("sentOTP")
+        print(sentOTP,otp)
         # AID = extract_appointment_number(tracker.latest_message.get('text'))
         if AID is not None:
-            data = "Your Appointment has been cancelled for AID : " + AID
+            if otp == sentOTP:
+                appointment.update_one({"_id":AID},{"$set":{"status":"cancelled"}})
+                data = "Your Appointment has been cancelled for AID : " + AID
+            else:
+                data = "Wrong OTP ! " 
+
         else:
             data = "Please Enter AID"
         dispatcher.utter_message(text=data)
@@ -146,7 +154,8 @@ class ActionBookAppointment(Action):
         email = tracker.get_slot("email")
         city = tracker.get_slot("city")
         otp = tracker.get_slot("otp")
-        print(name, age, email, city,otp)
+        sentOTP = tracker.get_slot("sentOTP")
+        print(name, age, email, city, otp, sentOTP)
 
         doc = {
             "_id": "aid_"+str(int(round(time.time() * 10))),
@@ -154,9 +163,13 @@ class ActionBookAppointment(Action):
             "age": age,
             "email": email,
             "city": city,
+            "status": "pending",
             "bookedOn": str(datetime.today())
         }
         appointment.insert_one(doc)
-        dispatcher.utter_message(text="Appointment booked !")
+        if (sentOTP == otp):
+            dispatcher.utter_message(text="Appointment booked !")
+        else:
+            dispatcher.utter_message(text="Wrong OTP !")
 
         return []
